@@ -15,7 +15,9 @@ const BoothDesign = React.lazy(() => import('./view/exhibitor/BoothDesign'));
 const CertificateAndInvoice = React.lazy(() => import('./view/exhibitor/CertificateAndInvoice'));
 const PowerOrder = React.lazy(() => import('./view/exhibitor/PowerOrder'));
 const PaymentRecord = React.lazy(() => import('./view/exhibitor/PaymentRecord'));
+const NotificationSystem = React.lazy(() => import('./view/exhibitor/NotificationSystem'));
 const InvoicePreview = React.lazy(() => import('./components/InvoicePreview'));
+
 
 const OperationLayout = React.lazy(() => import('./layout/OperationLayout'));
 const ViewExhibitors = React.lazy(() => import('./view/operation/ViewExhibitors'));
@@ -60,6 +62,7 @@ const routes = [
   { path: '/exhibitor/certificate-and-invoice', name: 'Certificate and invoice', element: ExhibitorLayout, component: CertificateAndInvoice },
   { path: '/exhibitor/power-order', name: 'Power Order', element: ExhibitorLayout, component: PowerOrder },
   { path: '/exhibitor/payment-record', name: 'Payment Record', element: ExhibitorLayout, component: PaymentRecord },
+  { path: '/exhibitor/notification', name: 'Payment Record', element: ExhibitorLayout, component: NotificationSystem },
 
   { path: '/operation', name: 'Dashboard', element: OperationLayout, component: Dashboard },
   { path: '/operation/view-exhibitors', name: 'View Exhibitors', element: OperationLayout, component: ViewExhibitors },

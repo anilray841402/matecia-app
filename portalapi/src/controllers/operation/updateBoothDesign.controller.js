@@ -31,6 +31,18 @@ const updateBoothDesign = async (req, res) => {
             });
         }
 
+        // Send real-time notification
+        const idOfUser = '6835570dd463279faf782bee';
+        const message = "Your Booth design has submited successfully";
+        const type = "boothdesign";
+        console.log(`🔔 Sending notification to user: ${idOfUser}`);
+        console.log(`📝 Message: ${message}`);
+        req.io.to(idOfUser).emit('notification', {
+            message,
+            type,
+            timestamp: new Date()
+        });
+
         return res.status(200).json({
             success: true,
             message: "Data updated successfully",

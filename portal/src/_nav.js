@@ -134,6 +134,15 @@ const _nav = [
       color: 'info',
     },
   },
+  {
+    component: CNavItem,
+    name: 'Notification',
+    to: '/exhibitor/notification',
+    icon: <CIcon icon={cilHeadphones} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+    },
+  },
 
 ]
 
