@@ -45,7 +45,7 @@ const NotificationSystem = () => {
                 });
 
             } catch (error) {
-                console.error('Error initializing socket:', error);
+                console.error('Error initializing here socket:', error);
             }
         };
 
