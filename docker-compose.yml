@@ -10,21 +10,22 @@ services:
     volumes:
       - mongo_data:/data/db
 
-    backend:
-    build: ./portalapi
+  backend:
     container_name: backend_container
-    restart: always
-    ports:
-      - "4000:4000"
+    image: matecia-backend
+    build:
+      context: ./portalapi
     volumes:
       - ./portalapi:/usr/src/app
       - /usr/src/app/node_modules
-    depends_on:
-      - mongo
+    ports:
+      - "4000:4000"
     environment:
       - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
-
+    command: npx nodemon src/index.js
+    restart: always
+    depends_on:
+      - mongo
 
   frontend:
     build: ./portal
