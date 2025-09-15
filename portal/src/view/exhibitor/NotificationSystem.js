@@ -1,19 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client'; // Changed import
 import { CSpinner } from '@coreui/react';
+import Cookies from 'js-cookie';
+import apiClient from '../../service/apiClient';
 
 const NotificationSystem = () => {
     const [loading, setLoading] = useState(false); // Changed to false initially
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
     const [socketConnected, setSocketConnected] = useState(false);
+    const [userId, setUserId] = useState();
 
-    const userId = '6835570dd463279faf782bee';
+    // const userId = '6835570dd463279faf782bee';
+
+    useEffect(() => {
+    const token = Cookies.get('token');
+    const verifyToken = async () => {
+      if (token) {
+        try {
+          const res = await apiClient.verifyToken();
+        //   console.log("user id is", res.user.id);
+        //   console.log("token is", token);
+          if (res.user.id) {
+            setUserId(res.user.id);
+          } else {
+            setUserId(false);
+            // Cookies.remove('token'); 
+          }
+        } catch (err) {
+          console.error("Token verification failed", err);
+        //   Cookies.remove('token'); 
+        }
+      } else {
+        setUserId(false);
+      }
+    };
+
+    verifyToken();
+  }, []);
 
     useEffect(() => {
         let socket;
 
         const initializeSocket = () => {
+
+            
             try {
                 // Initialize socket connection
                 socket = io('ws://localhost:4000', {
@@ -45,7 +76,7 @@ const NotificationSystem = () => {
                 });
 
             } catch (error) {
-                console.error('Error initializing here socket:', error);
+                console.error('Error initializing socket:', error);
             }
         };
 
