@@ -105,14 +105,14 @@ const NotificationSystem = () => {
                 {unreadCount > 0 && (
                     <span className="badge bg-danger ms-2">{unreadCount}</span>
                 )}
-                <span className="ms-2">Notifications</span>
+                <span className="ms-2"> All Notifications here</span>
             </div>
 
             {/* Notification List */}
             <div className="notification-list">
                 {notifications.length === 0 ? (
                     <div className="text-muted text-center p-3">
-                        No notifications yet
+                        No Notifications here
                     </div>
                 ) : (
                     notifications.map((notification, index) => (

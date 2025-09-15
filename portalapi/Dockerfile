@@ -4,12 +4,11 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-# Install dependencies including nodemon (for dev)
-RUN npm install && npm install -g nodemon
+RUN npm install
 
 COPY . .
 
 EXPOSE 4000
 
-# Use nodemon instead of node
-CMD ["npm", "start"]
+# Use nodemon in dev (auto-reload on file changes)
+CMD ["npx", "nodemon", "src/index.js"]
