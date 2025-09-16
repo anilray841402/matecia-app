@@ -62,7 +62,7 @@ const routes = [
   { path: '/exhibitor/certificate-and-invoice', name: 'Certificate and invoice', element: ExhibitorLayout, component: CertificateAndInvoice },
   { path: '/exhibitor/power-order', name: 'Power Order', element: ExhibitorLayout, component: PowerOrder },
   { path: '/exhibitor/payment-record', name: 'Payment Record', element: ExhibitorLayout, component: PaymentRecord },
-  { path: '/exhibitor/notification', name: 'Payment Record', element: ExhibitorLayout, component: NotificationSystem },
+  { path: '/exhibitor/notification', name: 'Notifications', element: ExhibitorLayout, component: NotificationSystem },
 
   { path: '/operation', name: 'Dashboard', element: OperationLayout, component: Dashboard },
   { path: '/operation/view-exhibitors', name: 'View Exhibitors', element: OperationLayout, component: ViewExhibitors },

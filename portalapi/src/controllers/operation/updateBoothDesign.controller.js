@@ -1,4 +1,5 @@
 import { BoothDesign } from "../../models/exhibitor/index.js";
+import { Notification } from "../../models/exhibitor/index.js";
 
 const updateBoothDesign = async (req, res) => {
   const boothDesignId = req.params.id;
@@ -27,26 +28,29 @@ const updateBoothDesign = async (req, res) => {
     }
 
     // Send real-time notification
-        const record = await BoothDesign.findOne({ _id: boothDesignId }); 
-        if (!record) {
-        return res.status(404).json({ message: "Booth design not found" });
-        }
+    const record = await BoothDesign.findOne({ _id: boothDesignId });
+    if (!record) {
+      return res.status(404).json({ message: "Booth design not found" });
+    }
 
-        const idOfUser = record.userId.toString();  
+    const idOfUser = record.userId.toString();
 
-        const message = "Your Booth design has been submitted successfully";
-        const type = "boothdesign";
+    const message = "Your Booth design has been submitted successfully";
+    const type = "Booth Design Data";
 
-        console.log(`🔔 Sending notification to user: ${idOfUser}`);
-        console.log(`📝 Message: ${message}`);
+    // console.log(`🔔 Sending notification to user: ${idOfUser}`);
+    // console.log(`📝 Message: ${message}`);
 
-        req.io.to(idOfUser).emit("notification", {
-        message,
-        type,
-        timestamp: new Date(),
-        });
-
+    const saveNotification = await Notification.create({ userId:idOfUser, message, type });
     
+    if(saveNotification) {
+      req.io.to(idOfUser).emit("notification", {
+      message,
+      type,
+      timestamp: new Date(),
+    });
+    }
+
     return res.status(200).json({
       success: true,
       message: "Data updated successfully",

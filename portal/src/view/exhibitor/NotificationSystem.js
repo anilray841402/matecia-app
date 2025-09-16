@@ -5,67 +5,49 @@ import Cookies from 'js-cookie';
 import apiClient from '../../service/apiClient';
 
 const NotificationSystem = () => {
-    const [loading, setLoading] = useState(false); // Changed to false initially
+    const [loading, setLoading] = useState(false);
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
-    const [socketConnected, setSocketConnected] = useState(false);
     const [userId, setUserId] = useState();
 
-    // const userId = '6835570dd463279faf782bee';
 
     useEffect(() => {
-    const token = Cookies.get('token');
-    const verifyToken = async () => {
-      if (token) {
-        try {
-          const res = await apiClient.verifyToken();
-        //   console.log("user id is", res.user.id);
-        //   console.log("token is", token);
-          if (res.user.id) {
-            setUserId(res.user.id);
-          } else {
-            setUserId(false);
-            // Cookies.remove('token'); 
-          }
-        } catch (err) {
-          console.error("Token verification failed", err);
-        //   Cookies.remove('token'); 
-        }
-      } else {
-        setUserId(false);
-      }
-    };
+        const token = Cookies.get('token');
+        const verifyToken = async () => {
+            if (token) {
+                try {
+                    const res = await apiClient.verifyToken();
+                    if (res.user.id) {
+                        setUserId(res.user.id);
+                    } else {
+                        setUserId(false);
+                    }
+                } catch (err) {
+                    console.error("Token verification failed", err);
+                }
+            } else {
+                setUserId(false);
+            }
+        };
 
-    verifyToken();
-  }, []);
+        verifyToken();
+    }, []);
 
     useEffect(() => {
         let socket;
 
         const initializeSocket = () => {
 
-            
             try {
                 // Initialize socket connection
                 socket = io('ws://localhost:4000', {
-                    transports: ['websocket', 'polling'] // Fallback transports
+                    transports: ['websocket', 'polling']
                 });
 
                 // Connection event handlers
                 socket.on('connect', () => {
                     console.log('✅ Connected to server:', socket.id);
-                    setSocketConnected(true);
                     socket.emit('join', userId);
-                });
-
-                socket.on('disconnect', () => {
-                    console.log('❌ Disconnected from server');
-                    setSocketConnected(false);
-                });
-
-                socket.on('connect_error', (error) => {
-                    console.error('❌ Connection error:', error);
-                    setSocketConnected(false);
                 });
 
                 // Listen for notifications
@@ -80,6 +62,20 @@ const NotificationSystem = () => {
             }
         };
 
+        // const fetchNotifications = async () => {
+        //     try {
+        //         setLoading(true);
+        //         const response = await apiClient.fetchNotification(userId);
+        //         const data = await response.data;
+        //         setNotifications(data.notifications || []);
+        //         setUnreadCount(data.unreadCount || 0);
+        //     } catch (error) {
+        //         console.error('Error fetching notifications:', error);
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // };
+
         // Initialize socket
         initializeSocket();
         return () => {
@@ -88,20 +84,6 @@ const NotificationSystem = () => {
             }
         };
     }, [userId]);
-
-    const fetchNotifications = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(`/api/notifications/${userId}`);
-            const data = await response.json();
-            setNotifications(data.notifications || []);
-            setUnreadCount(data.unreadCount || 0);
-        } catch (error) {
-            console.error('Error fetching notifications:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const markAsRead = (notificationId) => {
         setNotifications(prev =>
@@ -125,10 +107,6 @@ const NotificationSystem = () => {
 
     return (
         <div className="notification-container p-3">
-            {/* Connection Status */}
-            <div className={`mb-2 small ${socketConnected ? 'text-success' : 'text-danger'}`}>
-                {socketConnected ? '🟢 Connected' : '🔴 Disconnected'}
-            </div>
 
             {/* Notification Bell */}
             <div className="notification-bell d-flex align-items-center mb-3">
@@ -136,14 +114,14 @@ const NotificationSystem = () => {
                 {unreadCount > 0 && (
                     <span className="badge bg-danger ms-2">{unreadCount}</span>
                 )}
-                <span className="ms-2"> All Notifications here</span>
+                <span className="ms-2"> Notifications</span>
             </div>
 
             {/* Notification List */}
             <div className="notification-list">
                 {notifications.length === 0 ? (
                     <div className="text-muted text-center p-3">
-                        No Notifications here
+                        No Notifications
                     </div>
                 ) : (
                     notifications.map((notification, index) => (
