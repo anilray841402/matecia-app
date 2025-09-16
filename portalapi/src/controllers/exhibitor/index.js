@@ -20,11 +20,12 @@ import submitMaterialAdda from "./submitMaterialAdda.controller.js";
 import getMaterialAdda from "./getMaterialAdda.controller.js";
 import reOpenMaterialAdda from "./reopenMaterialAdda.controller.js";
 import updateMaterialAdda from "./updateMaterialAdda.controller.js";
+import getNotification from "./getNotification.controller.js";
 
 export {
     getExhibitorDetails, submitBadges, getBadges,
     deleteBadge, updateBadges, getPaymentRecord, submitPaymentrecord,
     deletePaymentRecord, updatePaymentRecord, getPowerOrder, submitPowerOrder,
     updatePowerOrder, reOpenPowerOrder, submitBoothDesign, getBoothDesign, reopenBoothDesign,
-    updateBoothDesign, submitMaterialAdda, getMaterialAdda, reOpenMaterialAdda, updateMaterialAdda
+    updateBoothDesign, submitMaterialAdda, getMaterialAdda, reOpenMaterialAdda, updateMaterialAdda, getNotification
 }

@@ -62,20 +62,6 @@ const NotificationSystem = () => {
             }
         };
 
-        // const fetchNotifications = async () => {
-        //     try {
-        //         setLoading(true);
-        //         const response = await apiClient.fetchNotification(userId);
-        //         const data = await response.data;
-        //         setNotifications(data.notifications || []);
-        //         setUnreadCount(data.unreadCount || 0);
-        //     } catch (error) {
-        //         console.error('Error fetching notifications:', error);
-        //     } finally {
-        //         setLoading(false);
-        //     }
-        // };
-
         // Initialize socket
         initializeSocket();
         return () => {
@@ -85,6 +71,32 @@ const NotificationSystem = () => {
         };
     }, [userId]);
 
+    useEffect(()=>{
+        const fetchNotifications = async () => {
+        try {
+            setLoading(true);
+            const response = await apiClient.fetchNotifications();
+
+            // Assuming response.notifications is an array
+            const notifications = response.notifications || [];
+
+            // Push notifications one by one like socket listener does
+            setNotifications(prev => [
+                ...notifications.map(n => n),
+                
+            ]);
+
+            // If unreadCount is sent by backend, use it. Otherwise count manually.
+            setUnreadCount(response.unreadCount ?? notifications.length);
+        } catch (error) {
+            console.error('Error fetching notifications:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    fetchNotifications();
+    }, [])
+    
     const markAsRead = (notificationId) => {
         setNotifications(prev =>
             prev.map(notif =>

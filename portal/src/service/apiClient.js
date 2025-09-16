@@ -379,6 +379,12 @@ class ApiClient {
     })
   }
 
+  async fetchNotifications() {
+    return this.customFetch(`/exhibitors/get-notification`, {
+      method: "GET",
+    })
+  }
+
 
 }
 

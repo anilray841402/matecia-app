@@ -5,7 +5,7 @@ import {
     getPaymentRecord, submitPaymentrecord, deletePaymentRecord, updatePaymentRecord,
     getPowerOrder, submitPowerOrder, updatePowerOrder, reOpenPowerOrder, submitBoothDesign,
     getBoothDesign, reopenBoothDesign, updateBoothDesign, submitMaterialAdda, getMaterialAdda,
-    reOpenMaterialAdda, updateMaterialAdda
+    reOpenMaterialAdda, updateMaterialAdda, getNotification
 } from "../controllers/exhibitor/index.js";
 import { isLoggedIn } from "../middlewares/auth.middleware.js";
 
@@ -49,6 +49,8 @@ router.put("/update-material-adda/:id", isLoggedIn, upload.fields([
     { name: 'productImg5', maxCount: 1 },
 ]), updateMaterialAdda);
 router.put("/reopen-material-adda/:id", isLoggedIn, reOpenMaterialAdda);
+
+router.get("/get-notification", isLoggedIn, getNotification);
 
 
 
