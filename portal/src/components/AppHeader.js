@@ -39,6 +39,7 @@ const AppHeader = () => {
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
+  const unreadCount = useSelector((state) => state.notifications.unreadCount);
 
   useEffect(() => {
     const backupToken = Cookies.get('admin_backup_token');
@@ -89,7 +90,10 @@ const AppHeader = () => {
         <CHeaderNav className="ms-auto">
           <CNavItem>
             <CNavLink href="/exhibitor/notification">
-               <span className="fs-5">🔔</span> <span className="badge bg-danger">2</span>
+              <span className="fs-5">🔔</span>
+              {unreadCount > 0 && (
+                <span className="badge bg-danger">{unreadCount}</span>
+              )}
             </CNavLink>
           </CNavItem>
           <CNavItem>

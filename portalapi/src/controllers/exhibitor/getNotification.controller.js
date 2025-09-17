@@ -13,8 +13,13 @@ const getNotification = async (req, res) => {
 
     try {
         const objectUserId = new mongoose.Types.ObjectId(userId);
+        const unreadCount = await Notification.countDocuments({
+            userId: objectUserId,
+            read: false
+        });
+
         const records = await Notification.find({ userId: objectUserId })
-            .select("message type timestamp -_id")
+            .select("message type read timestamp -_id")
             .sort({ timestamp: -1 }); // latest first
 
         if (!records || records.length === 0) {
@@ -28,6 +33,7 @@ const getNotification = async (req, res) => {
         const notifications = records.map(r => ({
             message: r.message,
             type: r.type,
+            read: r.read,
             timestamp: r.timestamp,
         }));
 
@@ -35,7 +41,7 @@ const getNotification = async (req, res) => {
             success: true,
             message: "Data fetched successfully",
             notifications,
-            unreadCount: notifications.length, // optional, matches your frontend
+            unreadCount 
         });
 
     } catch (error) {

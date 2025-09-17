@@ -37,10 +37,7 @@ const updateBoothDesign = async (req, res) => {
 
         const message = "Your Booth design has been submitted successfully";
         const type = "Booth Design Data";
-
-        // console.log(`🔔 Sending notification to user: ${idOfUser}`);
-        // console.log(`📝 Message: ${message}`);
-
+        
         const saveNotification = await Notification.create({ userId: idOfUser, message, type });
 
         if (saveNotification) {

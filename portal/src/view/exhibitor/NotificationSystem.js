@@ -3,12 +3,14 @@ import { io } from 'socket.io-client'; // Changed import
 import { CSpinner } from '@coreui/react';
 import Cookies from 'js-cookie';
 import apiClient from '../../service/apiClient';
+import { useDispatch } from "react-redux";
 
 const NotificationSystem = () => {
     const [loading, setLoading] = useState(false);
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
     const [userId, setUserId] = useState();
+    const dispatch = useDispatch();
 
 
     useEffect(() => {
@@ -53,8 +55,17 @@ const NotificationSystem = () => {
                 // Listen for notifications
                 socket.on('notification', (notification) => {
                     console.log('🔔 Notification received:', notification);
+
                     setNotifications(prev => [notification, ...prev]);
-                    setUnreadCount(prev => prev + 1);
+
+                    setUnreadCount(prev => {
+                        const updatedCount = prev + 1;
+                        dispatch({
+                            type: "setUnreadCount",
+                            unreadCount: updatedCount,
+                        });
+                        return updatedCount;
+                    });
                 });
 
             } catch (error) {
@@ -71,42 +82,41 @@ const NotificationSystem = () => {
         };
     }, [userId]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchNotifications = async () => {
-        try {
-            setLoading(true);
-            const response = await apiClient.fetchNotifications();
+            try {
+                setLoading(true);
+                const response = await apiClient.fetchNotifications();
+                // console.log('Notification is', response.notifications);
+                // return;
+                const notifications = response.notifications || [];
 
-            // Assuming response.notifications is an array
-            const notifications = response.notifications || [];
+                // Update Redux
+                dispatch({ type: "setNotifications", list: notifications });
 
-            // Push notifications one by one like socket listener does
-            setNotifications(prev => [
-                ...notifications.map(n => n),
-                
-            ]);
+                dispatch({
+                    type: "setUnreadCount",
+                    unreadCount: response.unreadCount,
+                });
 
-            // If unreadCount is sent by backend, use it. Otherwise count manually.
-            setUnreadCount(response.unreadCount ?? notifications.length);
-        } catch (error) {
-            console.error('Error fetching notifications:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-    fetchNotifications();
-    }, [])
-    
+
+                // Update local state
+                setNotifications(notifications);
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchNotifications();
+    }, [dispatch]);
+
+
     const markAsRead = (notificationId) => {
-        setNotifications(prev =>
-            prev.map(notif =>
-                notif.id === notificationId
-                    ? { ...notif, read: true }
-                    : notif
-            )
-        );
-        setUnreadCount(prev => Math.max(0, prev - 1));
+        dispatch({ type: "markAsRead", id: notificationId });
     };
+
 
     if (loading) {
         return (
@@ -123,10 +133,8 @@ const NotificationSystem = () => {
             {/* Notification Bell */}
             <div className="notification-bell d-flex align-items-center mb-3">
                 <span className="fs-4">🔔</span>
-                {unreadCount > 0 && (
-                    <span className="badge bg-danger ms-2">{unreadCount}</span>
-                )}
-                <span className="ms-2"> Notifications</span>
+
+                <span className="ms-2">All Notifications Listed Here</span>
             </div>
 
             {/* Notification List */}
