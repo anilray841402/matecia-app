@@ -53,20 +53,23 @@ const NotificationSystem = () => {
                 });
 
                 // Listen for notifications
-                socket.on('notification', (notification) => {
-                    console.log('🔔 Notification received:', notification);
+                socket.on("notification", (notification) => {
+                    console.log("🔔 Notification received:", notification);
 
-                    setNotifications(prev => [notification, ...prev]);
+                    setNotifications((prev) => [notification, ...prev]);
 
-                    setUnreadCount(prev => {
-                        const updatedCount = prev + 1;
+                    setUnreadCount((prev) => {
+                        const newCount = prev + 1;
+
                         dispatch({
                             type: "setUnreadCount",
-                            unreadCount: updatedCount,
+                            unreadCount: newCount,
                         });
-                        return updatedCount;
+
+                        return newCount;
                     });
                 });
+
 
             } catch (error) {
                 console.error('Error initializing socket:', error);
@@ -92,13 +95,11 @@ const NotificationSystem = () => {
                 const notifications = response.notifications || [];
 
                 // Update Redux
-                dispatch({ type: "setNotifications", list: notifications });
-
                 dispatch({
                     type: "setUnreadCount",
                     unreadCount: response.unreadCount,
                 });
-
+                setUnreadCount(response.unreadCount);
 
                 // Update local state
                 setNotifications(notifications);
