@@ -5,7 +5,6 @@ const initialState = {
   sidebarShow: true,
   theme: "light",
 
-  // 🔹 Notifications state
   notifications: {
     list: [],
     unreadCount: 0,
@@ -17,24 +16,39 @@ const changeState = (state = initialState, { type, ...rest }) => {
     case "set":
       return { ...state, ...rest };
 
-    // 🔹 Notifications handling
-    // case "setNotifications":
-    //   return {
-    //     ...state,
-    //     notifications: {
-    //       ...state.notifications,
-    //       list: rest.list,
-    //     },
-    //   };
+    case "setNotifications":
+      return {
+        ...state,
+        notifications: {
+          ...state.notifications,
+          list: rest.list || [],
+        },
+      };
 
     case "setUnreadCount":
       return {
         ...state,
         notifications: {
           ...state.notifications,
-          unreadCount: rest.unreadCount,
+          unreadCount: Number(rest.unreadCount) || 0,
         },
       };
+
+    // Add incoming notification to top of list and increment unread
+    case "addNotification": {
+      const incoming = rest.notification;
+      // avoid duplicate (if same id already exists)
+      const filtered = state.notifications.list.filter(
+        (n) => n.id !== incoming.id
+      );
+      return {
+        ...state,
+        notifications: {
+          list: [incoming, ...filtered],
+          unreadCount: state.notifications.unreadCount + 1,
+        },
+      };
+    }
 
     case "markAsRead":
       return {
