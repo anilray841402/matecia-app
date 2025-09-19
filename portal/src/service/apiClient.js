@@ -385,6 +385,12 @@ class ApiClient {
     })
   }
 
+  async updateNotifications(notificationId) {
+    return this.customFetch(`/exhibitors/update-notification/${notificationId}`, {
+      method: "GET",
+    });
+  }
+
 
 }
 

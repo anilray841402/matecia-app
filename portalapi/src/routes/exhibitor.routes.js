@@ -5,7 +5,7 @@ import {
     getPaymentRecord, submitPaymentrecord, deletePaymentRecord, updatePaymentRecord,
     getPowerOrder, submitPowerOrder, updatePowerOrder, reOpenPowerOrder, submitBoothDesign,
     getBoothDesign, reopenBoothDesign, updateBoothDesign, submitMaterialAdda, getMaterialAdda,
-    reOpenMaterialAdda, updateMaterialAdda, getNotification
+    reOpenMaterialAdda, updateMaterialAdda, getNotification, updateNotification
 } from "../controllers/exhibitor/index.js";
 import { isLoggedIn } from "../middlewares/auth.middleware.js";
 
@@ -51,6 +51,7 @@ router.put("/update-material-adda/:id", isLoggedIn, upload.fields([
 router.put("/reopen-material-adda/:id", isLoggedIn, reOpenMaterialAdda);
 
 router.get("/get-notification", isLoggedIn, getNotification);
+router.get("/update-notification/:id", isLoggedIn, updateNotification);
 
 
 

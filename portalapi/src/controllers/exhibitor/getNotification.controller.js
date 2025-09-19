@@ -19,8 +19,9 @@ const getNotification = async (req, res) => {
         });
 
         const records = await Notification.find({ userId: objectUserId })
-            .select("message type read timestamp -_id")
-            .sort({ timestamp: -1 }); // latest first
+            .select("message type read createdAt _id")
+            .sort({ _id: -1 })
+            .limit(10);
 
         if (!records || records.length === 0) {
             return res.status(404).json({
@@ -32,9 +33,10 @@ const getNotification = async (req, res) => {
         // transform array into same shape as socket pushes
         const notifications = records.map(r => ({
             message: r.message,
+            id: r._id,
             type: r.type,
             read: r.read,
-            timestamp: r.timestamp,
+            timestamp: r.createdAt,
         }));
 
         return res.status(200).json({

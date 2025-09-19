@@ -54,10 +54,7 @@ const NotificationSystem = () => {
 
                 // Listen for notifications
                 socket.on("notification", (notification) => {
-                    console.log("🔔 Notification received:", notification);
-
                     setNotifications((prev) => [notification, ...prev]);
-
                     setUnreadCount((prev) => {
                         const newCount = prev + 1;
 
@@ -86,36 +83,36 @@ const NotificationSystem = () => {
     }, [userId]);
 
     useEffect(() => {
-        const fetchNotifications = async () => {
-            try {
-                setLoading(true);
-                const response = await apiClient.fetchNotifications();
-                // console.log('Notification is', response.notifications);
-                // return;
+        fetchNotifications();
+    }, [dispatch]);
+
+    const fetchNotifications = async () => {
+        try {
+            setLoading(true);
+            const response = await apiClient.fetchNotifications();
+            if (response) {
                 const notifications = response.notifications || [];
 
-                // Update Redux
                 dispatch({
                     type: "setUnreadCount",
                     unreadCount: response.unreadCount,
                 });
                 setUnreadCount(response.unreadCount);
-
-                // Update local state
                 setNotifications(notifications);
-            } catch (error) {
-                console.error("Error fetching notifications:", error);
-            } finally {
-                setLoading(false);
             }
-        };
+        } catch (error) {
+            console.error("Error fetching notifications:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        fetchNotifications();
-    }, [dispatch]);
-
-
-    const markAsRead = (notificationId) => {
+    const markAsRead = async (notificationId) => {
         dispatch({ type: "markAsRead", id: notificationId });
+        const response = await apiClient.updateNotifications(notificationId);
+        if (response.success) {
+            fetchNotifications();
+        }
     };
 
 
@@ -148,7 +145,8 @@ const NotificationSystem = () => {
                     notifications.map((notification, index) => (
                         <div
                             key={notification.id || index}
-                            className="notification-item border rounded p-3 mb-2 bg-light"
+                            className={`notification-item border rounded p-3 mb-2 
+                              ${notification.read ? "bg-light text-muted" : "bg-white fw-bold"}`}
                             onClick={() => markAsRead(notification.id)}
                             style={{ cursor: 'pointer' }}
                         >

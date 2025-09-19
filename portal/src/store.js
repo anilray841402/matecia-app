@@ -18,14 +18,14 @@ const changeState = (state = initialState, { type, ...rest }) => {
       return { ...state, ...rest };
 
     // 🔹 Notifications handling
-    case "setNotifications":
-      return {
-        ...state,
-        notifications: {
-          ...state.notifications,
-          list: rest.list,
-        },
-      };
+    // case "setNotifications":
+    //   return {
+    //     ...state,
+    //     notifications: {
+    //       ...state.notifications,
+    //       list: rest.list,
+    //     },
+    //   };
 
     case "setUnreadCount":
       return {
