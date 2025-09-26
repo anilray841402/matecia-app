@@ -1,5 +1,4 @@
 import { MaterialAdda } from "../../models/exhibitor/index.js";
-import mongoose from "mongoose";
 
 const getMaterialAdda = async (req, res) => {
 
@@ -13,7 +12,6 @@ const getMaterialAdda = async (req, res) => {
   }
 
   try {
-    const objectUserId = new mongoose.Types.ObjectId(userId); // Convert string to ObjectId
     const materialAddaById = await MaterialAdda.find({ userId });
     if (!materialAddaById) {
       return res.status(404).json({

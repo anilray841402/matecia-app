@@ -2,11 +2,7 @@ import User from "../../models/user.model.js";
 
 const updateUsers = async (req, res) => {
     const userId = req.params.id;
-    // console.log('Request method:', req.method);
-    // console.log('Content-Type:', req.headers['content-type']);
-    // console.log('Raw body:', req.body);
-    // return
-
+   
     const {
         name,
         email,

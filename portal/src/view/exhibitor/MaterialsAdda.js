@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-// import * as Yup from 'yup';
 import {
   CCard,
   CCardBody,
@@ -82,7 +81,6 @@ const MaterialsAddaForm = () => {
     formData.append("productSuperior", values.productSuperior);
     formData.append("status", 1);
 
-    // Collect products into an array
     const products = [1, 2, 3, 4, 5].map((index) => ({
       productName: values[`productName${index}`],
       productDescription: values[`productDescription${index}`],
@@ -91,7 +89,6 @@ const MaterialsAddaForm = () => {
 
     formData.append("products", JSON.stringify(products));
 
-    // Append each product image to FormData separately
     [1, 2, 3, 4, 5].forEach((index) => {
       const file = values[`productImg${index}`];
       if (file) {
@@ -99,7 +96,6 @@ const MaterialsAddaForm = () => {
       }
     });
 
-    // Append old product image to FormData separately
     const oldProductImg = data.products.map((value, index) => ({
       productImg: value.productImg || null,
     }));

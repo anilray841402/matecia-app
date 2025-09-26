@@ -19,7 +19,7 @@ const reOpenMaterialAdda = async (req, res) => {
         {
             status,
         }, 
-        { new: true } // return the updated document
+        { new: true }
     );
     if (!updated) {
       return res.status(404).json({

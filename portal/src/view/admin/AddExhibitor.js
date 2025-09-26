@@ -15,7 +15,7 @@ import {
     CAlert,
 } from '@coreui/react'
 import DocsComponents from '../../components/DocsComponents'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import apiClient from '../../service/apiClient'
 import { useNavigate } from 'react-router-dom';
@@ -44,10 +44,6 @@ const AddExhibitor = () => {
         if (res.success) {
             alert("Exhibitor Added Successfully");
             navigate('/admin/view-exhibitors');
-            // setSuccessMessage("Exhibitor Submited Successfully")
-            // setTimeout(() => {
-            //     setSuccessMessage("");
-            // }, 4000)
         } else {
             setErrorMessage(res.message);
             setTimeout(() => {

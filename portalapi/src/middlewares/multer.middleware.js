@@ -1,9 +1,8 @@
 import multer from 'multer';
-import path from 'path';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './public/images/materialAdda/'); // Folder where files will be stored
+    cb(null, './public/images/materialAdda/'); 
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}_${file.originalname}`);

@@ -24,8 +24,6 @@ const EditInformation = () => {
     const fetchData = async () => {
       try {
         const data = await apiClient.fetchExhibitor();
-        // console.log('Response from API:', data);
-  
         if (data.success) { 
           setFormData(data.data);
         } else {

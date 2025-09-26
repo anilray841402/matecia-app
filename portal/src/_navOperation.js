@@ -61,11 +61,6 @@ const _navOperation = [
         name: 'Product Submission',
         to: '/operation/product-submission',
       },
-      // {
-      //   component: CNavItem,
-      //   name: 'Brand Promotion',
-      //   to: '/operation/brand-promotion',
-      // },
     ],
   },
   {

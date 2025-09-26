@@ -2,8 +2,6 @@ import { ExhibitorDetails } from "../../models/exhibitor/index.js";
 
 const updateExhibitors = async (req, res) => {
     const exhibitorId = req.params.id;
-    // console.log(exhibitorId);
-    // console.log(req.body);
 
     const {
         piNumber,
@@ -32,7 +30,7 @@ const updateExhibitors = async (req, res) => {
     try {
 
         const updated = await ExhibitorDetails.findOneAndUpdate(
-            { userId: exhibitorId }, // Match where userId == exhibitorId
+            { userId: exhibitorId },
             {
                 piNumber,
                 companyName,
@@ -64,7 +62,7 @@ const updateExhibitors = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Data updated successfully",
-            data: updated, // Send back the updated object for confirmation
+            data: updated,
         });
     } catch (error) {
         console.error("Error updating MaterialAdda:", error.message);

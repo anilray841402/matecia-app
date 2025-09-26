@@ -31,7 +31,6 @@ const AddVendor = () => {
 
         for (const key in values) {
             if (key === 'file') {
-                // Handle file separately
                 if (values.file) {
                     formData.append('file', values.file);
                 }
@@ -39,8 +38,7 @@ const AddVendor = () => {
                 formData.append(key, values[key]);
             }
         }
-        // console.log([...formData.entries()]); 
-        // return;
+        
         try {
             const res = await apiClient.submitVendor(formData);
             if (res.success) {
@@ -75,7 +73,6 @@ const AddVendor = () => {
 
     const validationSchema = Yup.object().shape({
         companyName: Yup.string().required('Required'),
-        // Add more validations as needed
     });
 
     if (loading) {

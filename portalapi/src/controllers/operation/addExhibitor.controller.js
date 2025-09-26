@@ -47,7 +47,7 @@ const addExhibitor = async (req, res) => {
         });
        
         const exhibitorDetails = await ExhibitorDetails.create({
-            userId: user._id, // Link the exhibitor to the user
+            userId: user._id, 
             piNumber,
             companyName,
             brandName,

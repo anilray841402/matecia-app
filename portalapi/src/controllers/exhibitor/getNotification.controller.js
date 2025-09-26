@@ -29,8 +29,6 @@ const getNotification = async (req, res) => {
                 message: "No Data Found",
             });
         }
-
-        // transform array into same shape as socket pushes
         const notifications = records.map(r => ({
             message: r.message,
             id: r._id,

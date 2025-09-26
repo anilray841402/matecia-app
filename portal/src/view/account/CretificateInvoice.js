@@ -104,7 +104,6 @@ const CertificateInvoice = () => {
         <>
             <CCard className="mbb-4">
                 <CCardHeader>
-                    {/* <strong>Exhibitors List</strong> */}
                     <div className="d-flex justify-content-end mb-1 mt-1 ">
                         <input
                             type="text"
@@ -130,8 +129,8 @@ const CertificateInvoice = () => {
                                 <CTableRow key={item._id}>
                                     <CTableDataCell>{index + 1 + (currentPage - 1) * itemsPerPage}</CTableDataCell>
                                     <CTableDataCell>{item.details.companyName}</CTableDataCell>
-                                    <CTableDataCell><CButton color="success" onClick={handleDownloadNoc} >Download NOC</CButton></CTableDataCell>
-                                    <CTableDataCell><CButton color="success" onClick={handleDownloadPc} >Download PC</CButton></CTableDataCell>
+                                    <CTableDataCell><CButton color="success" onClick={handleDownloadNoc} > Download NOC </CButton></CTableDataCell>
+                                    <CTableDataCell><CButton color="success" onClick={handleDownloadPc} > Download PC </CButton></CTableDataCell>
                                 </CTableRow>
                             ))}
                         </CTableBody>

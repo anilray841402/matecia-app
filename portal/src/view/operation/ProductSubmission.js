@@ -28,8 +28,6 @@ const ProductSubmission = () => {
     const [searchText, setSearchText] = useState('');
     const [visible, setVisible] = useState(false);
     const [selectedExhibitor, setSelectedExhibitor] = useState(null);
-
-    // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
 
@@ -146,7 +144,6 @@ const ProductSubmission = () => {
                             {selectedExhibitor && (
                                 <>
                                     <p><strong>Company Name:</strong> {selectedExhibitor.details?.companyName || "N/A"}</p>
-                                    {/* <p><strong>Email:</strong> {selectedExhibitor.email || "N/A"}</p> */}
                                     <p><strong>Contact Person:</strong> {selectedExhibitor.details?.contactPerson || "N/A"}</p>
                                     <p><strong>Phone No:</strong> {selectedExhibitor.details?.mobileNumber || "N/A"}</p>
                                     <p><strong>Booth No:</strong> {selectedExhibitor.details?.boothNumber || "N/A"}</p>

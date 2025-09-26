@@ -21,7 +21,6 @@ const updateMaterialAdda = async (req, res) => {
     });
   }
 
-  // ✅ **Check if products old Image exist and are valid JSON**
   let parsedOldProductImg = [];
   if (oldProductImg) {
     try {
@@ -38,14 +37,13 @@ const updateMaterialAdda = async (req, res) => {
     }
   }
 
-  // 🗂️ **Map product images with the file paths from multer**
   const productFiles = [1, 2, 3, 4, 5].map((index) =>
     req.files?.[`productImg${index}`]?.[0]?.filename ??
     parsedOldProductImg?.[index - 1]?.productImg ??
     null
   );
 
-  // ✅ **Check if products exist and are valid JSON**
+  // Check if products exist and are valid JSON
   let parsedProducts = [];
   if (products) {
     try {
@@ -63,7 +61,7 @@ const updateMaterialAdda = async (req, res) => {
   }
 
 
-  // 🗂️ **Attach the file paths to the product array if available**
+  // Attach the file paths to the product array if available
   const updatedProducts = parsedProducts.map((product, index) => {
     if (productFiles[index]) {
       return { ...product, productImg: productFiles[index] };
@@ -72,7 +70,6 @@ const updateMaterialAdda = async (req, res) => {
   });
 
   try {
-    // 📝 **Update only the fields that are provided, don't overwrite the entire object**
     const updateData = {
       brandName,
       productCategory,
@@ -103,7 +100,7 @@ const updateMaterialAdda = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Data updated successfully",
-      data: updated, // Send back the updated object for confirmation
+      data: updated, 
     });
   } catch (error) {
     console.error("Error updating MaterialAdda:", error.message);

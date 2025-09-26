@@ -73,7 +73,7 @@ const addVendor = async (req, res) => {
 
     } catch (error) {
         if (user && user._id) {
-            await User.findByIdAndDelete(user._id); // rollback only if created
+            await User.findByIdAndDelete(user._id);
         }
         console.error("Error updating data:", error.message);
         return res.status(500).json({

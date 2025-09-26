@@ -1,6 +1,5 @@
 import User from "../../models/user.model.js";
 
-
 const getExhibitors = async (req, res) => {
 
   const userId = req.user.id;
@@ -16,36 +15,36 @@ const getExhibitors = async (req, res) => {
 
     const exhibitors = await User.aggregate([
       {
-        $match: { role: 'user' } // Filter only users with role 'user'
+        $match: { role: 'user' } 
       },
       {
         $lookup: {
-          from: 'exhibitordetails',        // exact collection name in MongoDB (should be lowercase)
-          localField: '_id',               // field in users collection
-          foreignField: 'userId',          // field in exhibitordetails collection
-          as: 'details'                    // alias for joined data
+          from: 'exhibitordetails',        
+          localField: '_id',               
+          foreignField: 'userId',          
+          as: 'details'                 
         }
       },
       {
         $lookup: {
-          from: 'boothdesigns',        // exact collection name in MongoDB (should be lowercase)
-          localField: '_id',               // field in users collection
-          foreignField: 'userId',          // field in exhibitordetails collection
-          as: 'boothdesign'                    // alias for joined data
+          from: 'boothdesigns',        
+          localField: '_id',           
+          foreignField: 'userId',         
+          as: 'boothdesign'           
         }
       },
       {
         $lookup: {
-          from: 'powerorders',        // exact collection name in MongoDB (should be lowercase)
-          localField: '_id',               // field in users collection
-          foreignField: 'userId',          // field in exhibitordetails collection
-          as: 'powerorder'                    // alias for joined data
+          from: 'powerorders',        
+          localField: '_id',               
+          foreignField: 'userId',         
+          as: 'powerorder'            
         }
       },
       {
         $unwind: {
           path: '$details',
-          preserveNullAndEmptyArrays: true // keep users even if they don't have details
+          preserveNullAndEmptyArrays: true 
         }
       },
       {

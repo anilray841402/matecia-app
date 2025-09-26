@@ -13,7 +13,7 @@ const getBoothDesign = async (req, res) => {
   }
 
   try {
-    const objectUserId = new mongoose.Types.ObjectId(userId); // Convert string to ObjectId
+    const objectUserId = new mongoose.Types.ObjectId(userId);
     const boothDesignById = await BoothDesign.find({ userId: objectUserId });
     const reOpenRequest = await ReOpenRequest.find({
       userId: objectUserId,

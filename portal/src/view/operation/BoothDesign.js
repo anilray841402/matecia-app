@@ -25,7 +25,6 @@ const BoothDesign = () => {
   const [successUpdateMessage, setSuccessUpdateMessage] = useState('');
   const [errorUpdateMessage, setErrorUpdateMessage] = useState('');
 
-  // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 

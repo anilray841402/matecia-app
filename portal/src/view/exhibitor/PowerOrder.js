@@ -50,7 +50,6 @@ const PowerOrder = () => {
     try {
       const res = await apiClient.fetchPowerOrder();
       if (res.success) {
-        // console.log("Data is ", res.data[0].userId);
         setShowDays(res.data.showDays);
         setSetUpDays(res.data.setUpDays);
         setStatus(res.reOpenRequest.status);
@@ -64,7 +63,6 @@ const PowerOrder = () => {
         setGst(res.exhibitor.gstNumber)
         
       } else {
-        // console.log("hi");
         console.log(res.message);
       }
     } catch (error) {

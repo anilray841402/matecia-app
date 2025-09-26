@@ -19,8 +19,6 @@ const CertificateAndInvoice = () => {
         const fetchData = async () => {
             try {
                 const res = await apiClient.fetchExhibitor();
-                // console.log('Response from API:', data);
-
                 if (res.success) {
                     setNoc(res.data.noc);
                     setPc(res.data.pc);

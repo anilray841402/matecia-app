@@ -34,10 +34,8 @@ const changeState = (state = initialState, { type, ...rest }) => {
         },
       };
 
-    // Add incoming notification to top of list and increment unread
     case "addNotification": {
       const incoming = rest.notification;
-      // avoid duplicate (if same id already exists)
       const filtered = state.notifications.list.filter(
         (n) => n.id !== incoming.id
       );

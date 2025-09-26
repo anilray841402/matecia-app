@@ -36,8 +36,6 @@ const updateReopenRequest = async (req, res) => {
         const saveNotification = await Notification.create({ userId, message, type });
 
         if (saveNotification) {
-            // console.log('test notification', userId);
-            // return
             req.io.to(userId).emit("notification", {
                 message,
                 type,
@@ -48,7 +46,7 @@ const updateReopenRequest = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Data updated successfully",
-            data: updated, // Send back the updated object for confirmation
+            data: updated, 
         });
     } catch (error) {
         console.error("Error updating Booth Design:", error.message);

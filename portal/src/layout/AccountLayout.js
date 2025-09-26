@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import apiClient from '../service/apiClient';
 
 const AccountLayout = ({ component }) => {
-  const [logedIn, setLogedIn] = useState(null); // null = loading
+  const [logedIn, setLogedIn] = useState(null); 
   const Component = component;
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const AccountLayout = ({ component }) => {
         } catch (err) {
           console.error("Token verification failed", err);
           setLogedIn(false);
-          Cookies.remove('token'); // Remove invalid token
+          Cookies.remove('token'); 
         }
       } else {
         setLogedIn(false);
@@ -35,12 +35,10 @@ const AccountLayout = ({ component }) => {
     verifyToken();
   }, []);
 
-  // While checking login status
   if (logedIn === null) {
     return <div>Loading...</div>;
   }
 
-  // Not logged in
   if (!logedIn) {
     return <Navigate to="/login" />;
   }

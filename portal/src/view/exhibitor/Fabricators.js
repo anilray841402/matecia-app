@@ -22,7 +22,6 @@ import {
 const Fabricators = () => {
   const [visible, setVisible] = useState(false)
 
-  // Optional: Sample data you can later pull dynamically
   const description = 'Propshop redefines exhibition stall design. We are not just building spaces; were creating immersive experiences that resonate with your audience.'
   const address = 'Propshop Events & Exhibitions Pvt Ltd Plot No.837, Opp INEZ Tower 6, Mori Road, Mahim (W),Postal Code: 400016, Mumbai, India'
   const gst = ''

@@ -5,10 +5,7 @@ const submitBoothDesign = async (req, res) => {
   const type = "boothdesign";
 
   const boothDesignPath = req.file?.filename ?? null;
-  // console.log("Body here", req.body);
-  // console.log("file here", req.file.filename);
-  // return
-
+ 
     if (!fabricatorType || typeof fabricatorType !== "string") {
        return res.status(400).json({
         success: false,
@@ -16,7 +13,6 @@ const submitBoothDesign = async (req, res) => {
       });
   }
   const userId = req.user.id;
-  // console.log(userId);
   if (!userId) {
     return res.status(400).json({
       success: false,

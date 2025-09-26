@@ -3,7 +3,6 @@ import { MaterialAdda } from "../../models/exhibitor/index.js";
 const getProductSubmission = async (req, res) => {
 
   const userId = req.user.id;
-//   console.log(userId);
 
   if (!userId) {
     return res.status(400).json({
@@ -17,16 +16,16 @@ const getProductSubmission = async (req, res) => {
     const productSubmission = await MaterialAdda.aggregate([
       {
         $lookup: {
-          from: 'exhibitordetails',        // exact collection name in MongoDB (should be lowercase)
-          localField: 'userId',               // field in users collection
-          foreignField: 'userId',          // field in exhibitordetails collection
-          as: 'details'                    // alias for joined data
+          from: 'exhibitordetails',       
+          localField: 'userId',               
+          foreignField: 'userId',       
+          as: 'details'              
         }
       },
       {
         $unwind: {
           path: '$details',
-          preserveNullAndEmptyArrays: true // keep users even if they don't have details
+          preserveNullAndEmptyArrays: true
         }
       },
     ]);
@@ -38,7 +37,6 @@ const getProductSubmission = async (req, res) => {
       });
     }
 
-    // console.log('data here', productSubmission);
     return res.status(200).json({
       success: true,
       message: "Data fetched successfully here",

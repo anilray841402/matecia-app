@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import apiClient from '../service/apiClient';
 
 const ExhibitorLayout = ({ component }) => {
-  const [logedIn, setLogedIn] = useState(null); // null = loading
+  const [logedIn, setLogedIn] = useState(null);
   const Component = component;
 
   useEffect(() => {
@@ -14,17 +14,17 @@ const ExhibitorLayout = ({ component }) => {
     const verifyToken = async () => {
       if (token) {
         try {
-          const res = await apiClient.verifyToken(); // Make an API call
+          const res = await apiClient.verifyToken(); 
           if (res.user.role === "user") {
             setLogedIn(true);
           } else {
             setLogedIn(false);
-            Cookies.remove('token'); // Clear expired token
+            Cookies.remove('token');
           }
         } catch (err) {
           console.error("Token verification failed", err);
           setLogedIn(false);
-          Cookies.remove('token'); // Remove invalid token
+          Cookies.remove('token');
         }
       } else {
         setLogedIn(false);
@@ -34,12 +34,10 @@ const ExhibitorLayout = ({ component }) => {
     verifyToken();
   }, []);
 
-  // While checking login status
   if (logedIn === null) {
     return <div>Loading...</div>;
   }
 
-  // Not logged in
   if (!logedIn) {
     return <Navigate to="/login" />;
   }

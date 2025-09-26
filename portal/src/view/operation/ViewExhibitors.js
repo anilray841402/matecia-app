@@ -39,7 +39,6 @@ const ViewExhibitors = () => {
   const [successUpdateMessage, setSuccessUpdateMessage] = useState('');
   const [errorUpdateMessage, setErrorUpdateMessage] = useState('');
   const [emailLoadingId, setEmailLoadingId] = useState(null);
-  // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
@@ -113,7 +112,7 @@ const ViewExhibitors = () => {
   }
 
   const handleEmail = async (id) => {
-    setEmailLoadingId(id); // Show loader for this button
+    setEmailLoadingId(id); //
     try {
       const res = await apiClient.emailExhibitor(id);
       if (res.success) {
@@ -127,7 +126,7 @@ const ViewExhibitors = () => {
       setErrorUpdateMessage("Something went wrong, Please try again later");
       setTimeout(() => setErrorUpdateMessage(""), 3000);
     } finally {
-      setEmailLoadingId(null); // Hide loader
+      setEmailLoadingId(null);
     }
   };
 
@@ -149,7 +148,6 @@ const ViewExhibitors = () => {
     <>
       <CCard className="mbb-4">
         <CCardHeader>
-          {/* <strong>Exhibitors List</strong> */}
           <div className="d-flex justify-content-end mb-1 mt-1 ">
             <input
               type="text"

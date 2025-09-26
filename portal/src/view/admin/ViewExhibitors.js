@@ -22,7 +22,7 @@ import {
     CFormTextarea,
     CSpinner
 } from '@coreui/react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import CIcon from '@coreui/icons-react';
 import { cilPencil, cilEnvelopeClosed, cilTrash } from '@coreui/icons';
 import { useNavigate } from 'react-router-dom';
@@ -39,7 +39,6 @@ const ViewExhibitors = () => {
     const [successUpdateMessage, setSuccessUpdateMessage] = useState('');
     const [errorUpdateMessage, setErrorUpdateMessage] = useState('');
     const [emailLoadingId, setEmailLoadingId] = useState(null);
-    // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
 
@@ -113,7 +112,7 @@ const ViewExhibitors = () => {
     }
 
     const handleEmail = async (id) => {
-        setEmailLoadingId(id); // Show loader for this button
+        setEmailLoadingId(id);
         try {
             const res = await apiClient.emailExhibitor(id);
             if (res.success) {
@@ -127,12 +126,11 @@ const ViewExhibitors = () => {
             setErrorUpdateMessage("Something went wrong, Please try again later");
             setTimeout(() => setErrorUpdateMessage(""), 3000);
         } finally {
-            setEmailLoadingId(null); // Hide loader
+            setEmailLoadingId(null);
         }
     };
 
     const handleDelete = async (item) => {
-        // setSelectedVendor(item);
         if (window.confirm("Do you really want to delete this item?")) {
             try {
                 const res = await apiClient.deleteExhibitor(item._id);

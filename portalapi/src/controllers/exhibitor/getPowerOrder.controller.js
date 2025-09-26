@@ -14,7 +14,7 @@ const getPowerOrder = async (req, res) => {
   }
 
   try {
-    const objectUserId = new mongoose.Types.ObjectId(userId); // Convert string to ObjectId
+    const objectUserId = new mongoose.Types.ObjectId(userId);
     const powerOrderdById = await PowerOrder.findOne({ userId: objectUserId });
     const exhibitorById = await ExhibitorDetails.findOne({ userId: objectUserId  });
     const reOpenRequest = await ReOpenRequest.findOne({ userId: objectUserId, type: 'powerorder'  });

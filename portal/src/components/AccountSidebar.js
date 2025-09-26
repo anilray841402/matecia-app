@@ -13,7 +13,6 @@ import {
 import { AppSidebarNav } from './AppSidebarNav'
 import matecialogo from '../assets/images/matecia-white-golden.png'
 
-// sidebar nav config
 import navigation from '../_navAccount'
 
 const AccountSidebar = () => {

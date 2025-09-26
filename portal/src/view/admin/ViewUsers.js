@@ -24,7 +24,6 @@ import {
 import { Formik, Form, Field } from 'formik';
 import CIcon from '@coreui/icons-react';
 import { cilPencil } from '@coreui/icons';
-// import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import apiClient from '../../service/apiClient';
 
@@ -82,7 +81,7 @@ const ViewUsers = () => {
   }
 
   const handleLogin = (role)=> {
-    // navigate("/operation", "_blank");
+
     if (role === "operation") {
       window.open("/operation", "_blank");
     } else {

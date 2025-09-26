@@ -34,7 +34,6 @@ const PaymentRecord = () => {
   const [successUpdateMessage, setSuccessUpdateMessage] = useState('');
   const [errorUpdateMessage, setErrorUpdateMessage] = useState('');
   const [editingPaymentRecordId, setEditingPaymentRecordId] = useState(null);
-  // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
@@ -80,8 +79,6 @@ const PaymentRecord = () => {
         setTdsDeductions("");
         setRefNumber("");
         setRemarks("");
-
-        // Re-fetch the full list from server
         fetchPaymentRecord();
 
         setSuccessMessage(editingPaymentRecordId ? 'Payment Record Updated successfully!' : 'Payment Record added successfully!');
@@ -105,7 +102,6 @@ const PaymentRecord = () => {
     try {
       const res = await apiClient.deletePaymentRecord(paymentRecordId);
       if (res.success) {
-        // console.log("Payment Record deleted success");
         setPaymentRecord(prevPaymentRecord => prevPaymentRecord.filter(paymentRecord => paymentRecord._id !== paymentRecordId));
         setSuccessUpdateMessage('Payment Record deleted successfully!');
         setTimeout(() => {

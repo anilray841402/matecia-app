@@ -37,14 +37,12 @@ const registerUser = async (req, res) => {
     const setTwo = "ABCD"
     const setThree = "0123456"
     const token = crypto.randomBytes(32).toString("hex");
-    // console.log(token);
     user.verificationToken = token;
 
-    //send email
     const transporter = nodemailer.createTransport({
       host: process.env.MAILTRAP_HOST,
       port: process.env.MAILTRAP_PORT,
-      secure: false, // true for port 465, false for other ports
+      secure: false, 
       auth: {
         user: process.env.MAILTRAP_USERNAME,
         pass: process.env.MAILTRAP_PASSWORD,
@@ -81,14 +79,12 @@ const registerUser = async (req, res) => {
 const verifyUser = async (req, res) => {
 
   const { token } = req.params;
-  // console.log(token);
   if (!token) {
     return res.status(400).json({
       message: "Invalid token",
     });
   }
   try {
-    // console.log("verification started");
 
     const user = await User.findOne({ verificationToken: token });
 
@@ -244,7 +240,7 @@ const forgotPassword = async (req, res) => {
     const mailOption = {
       from: process.env.MAILTRAP_SENDEREMAIL,
       to: user.email,
-      subject: "Verify your email", // Subject line
+      subject: "Verify your email", 
       text: `Please click on the following link:
       ${process.env.BASE_URL}/api/v1/users/reset-password/${token}
       `,
@@ -337,7 +333,7 @@ const verifyToken = async (req, res) => {
   }
 
   try {
-    const decoded = await jwt.verify(token, process.env.JWT_SECRET); // verify & decode
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET); 
     const user = await User.findById(decoded.id);
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });

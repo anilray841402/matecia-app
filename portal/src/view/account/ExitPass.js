@@ -79,7 +79,6 @@ const ExitPass = () => {
         <>
             <CCard className="mbb-4">
                 <CCardHeader>
-                    {/* <strong>Exhibitors List</strong> */}
                     <div className="d-flex justify-content-end mb-1 mt-1 ">
                         <input
                             type="text"

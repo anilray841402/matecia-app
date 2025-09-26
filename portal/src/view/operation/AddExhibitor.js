@@ -15,7 +15,7 @@ import {
     CAlert,
 } from '@coreui/react'
 import DocsComponents from '../../components/DocsComponents'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import apiClient from '../../service/apiClient'
 import { useNavigate } from 'react-router-dom';
@@ -29,10 +29,8 @@ const AddExhibitor = () => {
 
     const handleSubmit = async (values) => {
         const formData = new FormData();
-        // Loop through all fields in values
         for (const key in values) {
             if (key === 'file') {
-                // Handle file separately
                 if (values.file) {
                     formData.append('file', values.file);
                 }
@@ -46,10 +44,6 @@ const AddExhibitor = () => {
         if (res.success) {
             alert("Exhibitor Added Successfully");
             navigate('/operation/view-exhibitors');
-            // setSuccessMessage("Exhibitor Submited Successfully")
-            // setTimeout(() => {
-            //     setSuccessMessage("");
-            // }, 4000)
         } else {
             setErrorMessage(res.message);
             setTimeout(() => {
@@ -82,7 +76,6 @@ const AddExhibitor = () => {
     const validationSchema = Yup.object().shape({
         companyName: Yup.string().required('Required'),
         brandName: Yup.string().required('Required'),
-        // Add more validations as needed
     });
 
     if (loading) {

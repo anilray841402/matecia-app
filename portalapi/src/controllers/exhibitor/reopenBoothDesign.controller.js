@@ -19,7 +19,7 @@ const reopenBoothDesign = async (req, res) => {
         {
             status: reopenStatus,
         }, 
-        { new: true } // return the updated document
+        { new: true }
     );
     if (!updated) {
       return res.status(404).json({

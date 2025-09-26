@@ -16,7 +16,7 @@ const getVendors = async (req, res) => {
 
     const exhibitors = await User.aggregate([
       {
-        $match: { role: 'vendor' } // Filter only users with role 'user'
+        $match: { role: 'vendor' } 
       },
       {
         $lookup: {
@@ -29,7 +29,7 @@ const getVendors = async (req, res) => {
       {
         $unwind: {
           path: '$details',
-          preserveNullAndEmptyArrays: true // keep users even if they don't have details
+          preserveNullAndEmptyArrays: true 
         }
       },
     ]);

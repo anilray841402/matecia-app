@@ -20,7 +20,7 @@ const submitMaterialAdda = async (req, res) => {
     });
   }
 
-  // Validation
+
   if (!brandName || !productCategory || !innovationType) {
     return res.status(400).json({
       success: false,
@@ -28,7 +28,6 @@ const submitMaterialAdda = async (req, res) => {
     });
   }
 
-  // 🗂️ **Map product images with the file paths from multer**
   const productFiles = [
     req.files['productImg1']?.[0]?.filename ?? null,
     req.files['productImg2']?.[0]?.filename ?? null,
@@ -37,7 +36,7 @@ const submitMaterialAdda = async (req, res) => {
     req.files['productImg5']?.[0]?.filename ?? null,
   ];
 
-  // ✅ **Check if products exist and are valid JSON**
+
   let parsedProducts = [];
   if (products) {
     try {
@@ -54,7 +53,6 @@ const submitMaterialAdda = async (req, res) => {
     }
   }
 
-  // 🗂️ **Attach the file paths to the product array if available**
   const updatedProducts = parsedProducts.map((product, index) => {
     if (productFiles[index]) {
       return { ...product, productImg: productFiles[index] };

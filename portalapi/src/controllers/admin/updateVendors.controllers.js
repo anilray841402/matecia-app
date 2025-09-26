@@ -3,13 +3,9 @@ import User from "../../models/user.model.js";
 
 const updateVendors = async (req, res) => {
     const vendorId = req.params.id;
-    // console.log(exhibitorId);
-    // console.log(req.body);
-
     const {
         companyName,
         name,
-        email,
         type,
         mobileNumber,
         additionalMobile,
@@ -29,16 +25,8 @@ const updateVendors = async (req, res) => {
 
     try {
 
-        const updatedUser = await User.findOneAndUpdate(
-            { _id: vendorId }, 
-            {
-                name,
-            },
-            { new: true }
-        );
-
         const updated = await VendorDetails.findOneAndUpdate(
-            { userId: vendorId }, // Match where userId == vendorId
+            { userId: vendorId },
             {
                 companyName,
                 type,
@@ -64,7 +52,7 @@ const updateVendors = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Data updated successfully",
-            data: updated, // Send back the updated object for confirmation
+            data: updated,
         });
     } catch (error) {
         console.error("Error updating Vendor:", error.message);

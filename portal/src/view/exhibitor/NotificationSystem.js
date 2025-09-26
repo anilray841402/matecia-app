@@ -14,7 +14,6 @@ const NotificationSystem = () => {
         dispatch({ type: 'markAsRead', id: notificationId });
         const response = await apiClient.updateNotifications(notificationId);
         if (response.success) {
-            // refresh list from server
             const updated = await apiClient.fetchNotifications();
             dispatch({
                 type: 'set',

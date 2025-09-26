@@ -18,7 +18,7 @@ const updateNotification = async (req, res) => {
         {
             read : true,
         }, 
-        { new: true } // return the updated document
+        { new: true } 
     );
     if (!updated) {
       return res.status(404).json({

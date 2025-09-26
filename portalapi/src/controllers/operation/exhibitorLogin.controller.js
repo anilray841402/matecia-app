@@ -23,9 +23,9 @@ const exhibitorLogin = async (req, res) => {
     // Save adminId temporarily in a secure cookie
     res.cookie('admin_backup_token', operationToken, {
         httpOnly: false,
-        secure: false, // true in production with HTTPS
+        secure: false, 
         sameSite: 'lax',
-        maxAge: 2 * 60 * 60 * 1000, // 2 hours
+        maxAge: 2 * 60 * 60 * 1000,
     });
 
     const exhibitor = await User.findById(userId);
@@ -41,19 +41,17 @@ const exhibitorLogin = async (req, res) => {
 
     const cookieOptions = {
         httpOnly: false,
-        secure: false,      // set to true if you're using HTTPS
-        sameSite: 'lax',    // helps with CSRF protection
-        maxAge: 2 * 60 * 60 * 1000 // 2 hours in milliseconds
+        secure: false,      
+        sameSite: 'lax',    
+        maxAge: 2 * 60 * 60 * 1000 
     };
 
-    res.cookie("token", token, cookieOptions); // set exhibitor token
+    res.cookie("token", token, cookieOptions); 
     res.status(200).json({
         success: true,
         Message: "Impersonated successfully",
         data: token
     });
-
-    // res.json({ token });
 
 };
 

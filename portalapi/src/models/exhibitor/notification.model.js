@@ -1,4 +1,3 @@
-// models/Notification.js
 import mongoose from "mongoose";
 
 const notificationSchema = new mongoose.Schema({
@@ -24,7 +23,6 @@ const notificationSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
 
 const Notification = mongoose.model("Notification", notificationSchema);
 

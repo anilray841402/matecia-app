@@ -12,7 +12,7 @@ const getExhibitorDetails = async (req, res) => {
   }
 
   try {
-    const objectUserId = new mongoose.Types.ObjectId(userId); // Convert string to ObjectId
+    const objectUserId = new mongoose.Types.ObjectId(userId);
     const exhibitorData = await ExhibitorDetails.findOne({ userId: objectUserId });
 
     if (!exhibitorData) {

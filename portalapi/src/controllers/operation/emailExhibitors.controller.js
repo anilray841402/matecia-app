@@ -1,7 +1,5 @@
 import User from "../../models/user.model.js";
-// const nodemailer = require('nodemailer');
 import nodemailer from 'nodemailer';
-
 
 const emailExhibitors = async (req, res) => {
     const exhibitorId = req.params.id;
@@ -19,20 +17,20 @@ const emailExhibitors = async (req, res) => {
     try {
         const exhibitors = await User.aggregate([
             {
-                $match: { role: 'user' } // Filter only users with role 'user'
+                $match: { role: 'user' } 
             },
             {
                 $lookup: {
-                    from: 'exhibitordetails',        // exact collection name in MongoDB (should be lowercase)
-                    localField: '_id',               // field in users collection
-                    foreignField: 'userId',          // field in exhibitordetails collection
-                    as: 'details'                    // alias for joined data
+                    from: 'exhibitordetails',     
+                    localField: '_id',              
+                    foreignField: 'userId',    
+                    as: 'details'            
                 }
             },
             {
                 $unwind: {
                     path: '$details',
-                    preserveNullAndEmptyArrays: true // keep users even if they don't have details
+                    preserveNullAndEmptyArrays: true
                 }
             },
         ]);
@@ -43,7 +41,6 @@ const emailExhibitors = async (req, res) => {
             contactPerson = ex.details?.contactPerson;
         });
 
-        // Send Email
         if (email) {
             const transporter = nodemailer.createTransport({
                 service: 'gmail',

@@ -22,7 +22,7 @@ const updatePowerOrder = async (req, res) => {
             total,
             status,
         }, 
-        { new: true } // return the updated document
+        { new: true }
     );
     const updatedReopen = await ReOpenRequest.findByIdAndUpdate( reopenId, { status });
 

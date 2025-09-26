@@ -22,8 +22,6 @@ const PaymentRecord = () => {
 
     const [paymentRecord, setPaymentRecord] = useState([]);
     const [searchText, setSearchText] = useState('');
-
-    // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
 

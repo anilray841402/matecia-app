@@ -30,8 +30,6 @@ const ExhibitorBadges = () => {
   const [successUpdateMessage, setSuccessUpdateMessage] = useState('');
   const [errorUpdateMessage, setErrorUpdateMessage] = useState('');
   const [editingBadgeId, seteditingBadgeId] = useState(null);
-
-  // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 

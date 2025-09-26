@@ -11,7 +11,6 @@ function App() {
   const dispatch = useDispatch();
   const [userId, setUserId] = useState(null);
 
-  // 1. Verify token and get userId
   useEffect(() => {
     const token = Cookies.get('token');
     const verifyToken = async () => {
@@ -41,24 +40,20 @@ function App() {
     });
 
     socket.on('notification', (notification) => {
-      // Normalize id field if backend sends _id
       const normalized = {
         id: notification.id || notification._id,
         message: notification.message,
         type: notification.type,
         read: notification.read ?? false,
         timestamp: notification.timestamp || new Date().toISOString(),
-        // include any other fields you need
       };
 
-      // Add to Redux (this will prepend & increment unread via reducer)
       dispatch({ type: 'addNotification', notification: normalized });
     });
 
     return () => socket.disconnect();
   }, [userId, dispatch]);
 
-  // 3. Fetch notifications on load
   useEffect(() => {
     const fetchNotifications = async () => {
       try {

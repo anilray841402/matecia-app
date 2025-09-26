@@ -19,8 +19,6 @@ const AdditionalPowerOrder = () => {
 
     const [powerOrder, setPowerOrder] = useState([]);
     const [searchText, setSearchText] = useState('');
-
-    // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
 
@@ -60,7 +58,6 @@ const AdditionalPowerOrder = () => {
         <>
             <CCard className="mbb-4">
                 <CCardHeader>
-                    {/* <strong>Booth Design List</strong> */}
                     <div className="d-flex justify-content-end mb-1 mt-1 ">
                         <input
                             type="text"

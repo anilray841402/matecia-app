@@ -16,11 +16,8 @@ dotenv.config({
 });
 
 const app = express();
-
-// Create HTTP server FIRST
 const server = createServer(app);
 
-// Initialize Socket.io with the server
 const io = new Server(server, {
   cors: {
     origin: ["http://localhost:3000", "http://localhost:3001"],
@@ -30,7 +27,6 @@ const io = new Server(server, {
   }
 });
 
-// Add a test route to verify socket.io is working
 app.get('/socket-test', (req, res) => {
   res.json({ 
     message: 'Socket.io server is running!',
@@ -86,7 +82,6 @@ io.on('connection', (socket) => {
   });
 });
 
-// Routes
 app.use("/healthcheck", healthCheckRouter);
 app.use("/api/v1/users", authRouters);
 app.use("/api/v1/exhibitors", exhibitorRouters);
@@ -94,5 +89,4 @@ app.use("/api/v1/operation", operationRouters);
 app.use("/api/v1/account", accountRouter);
 app.use("/api/v1/admin", adminRouter);
 
-// Export server instead of app
 export { app, server, io };

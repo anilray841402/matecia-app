@@ -20,7 +20,6 @@ import { useNavigate } from 'react-router-dom';
 
 const AddUser = () => {
     const [loading, setLoading] = useState(false)
-    // const [successMessage, setSuccessMessage] = useState();
     const [errorMessage, setErrorMessage] = useState();
 
     const navigate = useNavigate();

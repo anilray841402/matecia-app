@@ -21,7 +21,7 @@ const updateBoothDesign = async (req, res) => {
         {
             fabricatorType, fabricatorCompanyName, contactPerson, email, mobile, gst, status, boothDesignPath
         }, 
-        { new: true } // return the updated document
+        { new: true }
     );
 
     const updatedReopen = await ReOpenRequest.findByIdAndUpdate( reopenId, { status:reopenStatus });

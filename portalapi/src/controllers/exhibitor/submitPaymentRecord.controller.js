@@ -11,7 +11,6 @@ const submitPaymentrecord = async (req, res) => {
       });
   }
   const userId = req.user.id;
-  // console.log(userId);
   if (!userId) {
     return res.status(400).json({
       success: false,

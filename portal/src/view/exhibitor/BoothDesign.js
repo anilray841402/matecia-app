@@ -122,12 +122,10 @@ const BoothDesign = () => {
         const res = await apiClient.fetchBoothDesign();
         if (res.success && Array.isArray(res.data) && res.data.length > 0) {
             const data = res.data[0];
-            // const reOpenRequest = 
             setBoothDesignData(data);
             setReopenStatus(res.reOpenRequest[0].status);
             setReopenId(res.reOpenRequest[0]._id);
             setBoothDesignId(data._id);
-            // console.log("all data", data);
         } else {
             console.warn("Booth design data not available or empty");
         }
@@ -159,7 +157,6 @@ const BoothDesign = () => {
     };
 
     const initialValues = {
-        // fabricatorType: boothDesignData?.fabricatorType || fieldData.fabricatorType,
         fabricatorCompanyName: fieldData.fabricatorCompanyName,
         contactPerson: fieldData.contactPerson || null,
         email: fieldData.email || null,

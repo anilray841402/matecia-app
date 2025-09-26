@@ -36,15 +36,15 @@ const materialAddaSchema = new mongoose.Schema(
       {
         productName: {
           type: String,
-          required: false, // Changed to false, since not all products may be filled
+          required: false, 
         },
         productDescription: {
           type: String,
-          required: false, // Changed to false, for optional entry
+          required: false, 
         },
         productDimension: {
           type: String,
-          required: false, // Changed to false, for optional entry
+          required: false, 
         },
         productImg: {
           type: String,

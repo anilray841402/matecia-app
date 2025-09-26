@@ -25,7 +25,7 @@ const updatePaymentRecord = async (req, res) => {
             refNumber,
             remarks,
         }, 
-        { new: true } // return the updated document
+        { new: true } 
     );
     if (!updated) {
       return res.status(404).json({
